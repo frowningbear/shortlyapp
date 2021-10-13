@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Frontend Mentor | Shortly URL shortening API Challenge</title>
+
+  <style></style>
+
+</head>
+<body>
+
+<input id="tedwood" type="text" placeholder="shorten a link here..." value="">
+
+<button type="submit" onclick="doAjax()">Shorten it!</button>
+
+  
+<script>
+  
+function doAjax() {
+  
+  var xhr = new XMLHttpRequest();
+  
+  var urlprefix = 'https://api.shrtco.de/v2/shorten?url=';
+  
+  var urlvalue = document.getElementById("tedwood").value;
+  
+  var url = urlprefix + urlvalue;
+  
+  xhr.open("GET", url);
+  
+  xhr.send();
+  
+  xhr.onload = function() {
+  
+  console.log(xhr.responseText);
+  
+  var data = JSON.parse(xhr.responseText);
+  
+  document.body.innerHTML += "<p><strong>Your original link was...</strong></p>"; 
+  
+  document.body.innerHTML += data.result.original_link;
+  
+  document.body.innerHTML += "<p><strong>And your shortened url is...</strong></p>";  
+  
+  document.body.innerHTML += data.result.full_short_link;
+  
+  }  
+  
+}
+</script>
+   
+</body>
+</html>
